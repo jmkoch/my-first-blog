@@ -35,7 +35,7 @@ class Comment(models.Model):
     def __str__(self):
         return self.text
 
-class Combinatorics_roster(models.Model)
+class Combinatorics_roster(models.Model):
     student_name = models.CharField(max_length=255)
     student_email = models.EmailField()
 
