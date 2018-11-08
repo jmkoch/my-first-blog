@@ -39,6 +39,10 @@ class Combinatorics_roster(models.Model):
     student_name = models.CharField(max_length=255)
     student_email = models.EmailField()
 
+class Foo(models.Model):
+    mighty_name = models.CharField(max_length=255)
+    kingdoms_count = models.PositiveIntegerField(default=0)
+    email = models.EmailField()
 '''
 class NumberPost(models.Model):
     post = models.ForeignKey('blog.Post', on_delete=models.CASCADE, related_name='float_input')
