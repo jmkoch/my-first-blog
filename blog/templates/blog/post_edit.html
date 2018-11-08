@@ -2,8 +2,8 @@
 
 {% block content %}
     <h1>New post</h1>
-    <form method="POST" class="post-form">{% csrf_token %}
-        {{ form.as_p }}
+    <form method="POST" class="post-form" novalidate="">{% csrf_token %}
+        {{ form.as_p }} <!--each form is wrapped in paragraph; other options include list, etc.-->
         <button type="submit" class="save btn btn-default">Save</button>
     </form>
 {% endblock %}

@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 class Post(models.Model):
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
@@ -9,6 +9,7 @@ class Post(models.Model):
     n_floatNum = models.FloatField(blank=True, null=True)
     n_smallIntNum = models. PositiveSmallIntegerField(blank=True, null=True)
     n_boolVal = models.BooleanField(default=False)
+    isi_val = models.FloatField(blank=True, null=True, validators=[MinValueValidator(0.0, message='Must be a number between 0.0 and 1.0'), MaxValueValidator(1.0, message=None)])
     created_date = models.DateTimeField(default=timezone.now)
     published_date = models.DateTimeField(blank=True, null=True)
 
