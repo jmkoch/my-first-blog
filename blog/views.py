@@ -2,6 +2,15 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from .models import Post
 from .forms import PostForm
+#from uni_form.helper import FormHelper
+from crispy_forms.helper import FormHelper
+from django.views.generic.edit import CreateView
+from blog.models import Combinatorics_roster
+
+class CreateCombinatoricsView(CreateView):
+	"""A create view for Combinatorics_roster model"""
+	template_name = "characters/create_combinatorics_roster.html"
+	model = Combinatorics_roster
 
 # Create your views here.
 
