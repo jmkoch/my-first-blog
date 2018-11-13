@@ -20,6 +20,19 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+class Trait(models.Model):
+    class Meta:
+        permissions = (
+            ('view_trait', 'Can view trait'),
+        )
+
+    genus = models.CharField(max_length=50, null=True, blank=False, )#help_text= 'Enter data if known. Expects str as input')
+    species = models.CharField(max_length=50, null=True, blank=False, )
+    
+    FRUIT_TYPE_CHOICES = (('Capsule','Capsule'),('Berry','Berry'))
+    fruit_type = models.CharField(max_length=50, null=False, default='none', choices=FRUIT_TYPE_CHOICES)
+
+
 
 class Comment(models.Model):
     post = models.ForeignKey('blog.Post', on_delete=models.CASCADE, related_name='comments')
