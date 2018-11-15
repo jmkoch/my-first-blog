@@ -1,5 +1,5 @@
 #from django import forms
-from .models import Post, Trait
+from .models import Post #, Trait
 from django.forms import ModelForm
 
 class PostForm(ModelForm):
@@ -7,7 +7,7 @@ class PostForm(ModelForm):
     class Meta:
         model = Post
         fields = ('title', 'text', 'n_floatNum', 'n_smallIntNum', 'n_boolVal', 'isi_val', )
-
+'''
 class TraitForm(ModelForm):
     class Meta:
         model = Trait
@@ -32,7 +32,7 @@ class TraitForm(ModelForm):
 
         super(TraitForm, self).__init__(*args, **kwargs)
 
-
+'''
 '''
 class MinValueValidator(BaseValidator):
     message = _('Ensure this value is greater than or equal to %(limit_value)s.')
