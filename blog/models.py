@@ -20,20 +20,6 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
-'''
-class Trait(models.Model):
-    class Meta:
-        permissions = (
-            ('view_trait', 'Can view trait'),
-        )
-
-    genus = models.CharField(max_length=50, null=True, blank=False, )#help_text= 'Enter data if known. Expects str as input')
-    species = models.CharField(max_length=50, null=True, blank=False, )
-    
-    FRUIT_TYPE_CHOICES = (('Capsule','Capsule'),('Berry','Berry'))
-    fruit_type = models.CharField(max_length=50, null=False, default='none', choices=FRUIT_TYPE_CHOICES)
-'''
-
 
 class Comment(models.Model):
     post = models.ForeignKey('blog.Post', on_delete=models.CASCADE, related_name='comments')
@@ -49,29 +35,8 @@ class Comment(models.Model):
     def __str__(self):
         return self.text
 
-class Combinatorics_roster(models.Model):
-    student_name = models.CharField(max_length=255)
-    student_email = models.EmailField()
 
 class Foo(models.Model):
     mighty_name = models.CharField(max_length=255)
     kingdoms_count = models.PositiveIntegerField(default=0)
     email = models.EmailField()
-'''
-class NumberPost(models.Model):
-    post = models.ForeignKey('blog.Post', on_delete=models.CASCADE, related_name='float_input')
-    author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    float_input = models.FloatField()
-    created_date = models.DateTimeField(default=timezone.now)
-
-    def publish(self):
-        self.published_date = timezone.now()
-        self.save()
-
-    def __str__(self):
-        return self.float_input
-'''
-
-
-#class User_input(models.Model):
-#    number = models.FloatField(null=True, blank=True, help_text= 'Enter a number.')

@@ -10,8 +10,5 @@ urlpatterns = [
     path('post/<int:pk>/edit/', views.post_edit, name='post_edit'),
     path('post/<pk>/remove/', views.post_remove, name='post_remove'),
     path('post/<pk>/publish/', views.post_publish, name='post_publish'),
-    #url(r'^combinatorics_roster/create/$', CreateCombinatoricsView.as_view(), name="create_combinatorics_roster"),
-    #path('post/<pk>/'),
 ]
 
-#    path('post/num/', views.post_num, name='post_num'),
