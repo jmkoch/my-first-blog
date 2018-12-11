@@ -6,3 +6,4 @@ urlpatterns = [
 	url(r'^trait/create/$', TraitCreateView.as_view(), name="create trait"),
 	#url(r'^address/create/$', AddressCreateView.as_view(), name="address form"),
 ]
+
