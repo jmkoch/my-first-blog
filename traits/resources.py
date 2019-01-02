@@ -1,6 +1,6 @@
 from import_export import resources
-from .models import Person
+from traits.models import Trait
 
-class PersonResource(resources.ModelResource):
+class TraitResource(resources.ModelResource):
     class Meta:
-        model = Person
+        model = Trait

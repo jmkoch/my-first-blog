@@ -1,6 +1,6 @@
 from import_export import resources
-from .models import Post
+from .models import Person #Post
 
-class PostResource(resources.ModelResource):
+class PersonResource(resources.ModelResource): #PostResource
     class Meta:
-        model = Post
+        model = Person #Post
