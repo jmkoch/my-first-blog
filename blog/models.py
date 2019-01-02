@@ -40,3 +40,9 @@ class Foo(models.Model):
     mighty_name = models.CharField(max_length=255)
     kingdoms_count = models.PositiveIntegerField(default=0)
     email = models.EmailField()
+
+class Person(models.Model):
+    name = models.CharField(max_length=30)
+    email = models.EmailField(blank=True)
+    birth_date = models.DateField()
+    location = models.CharField(max_length=100, blank=True)

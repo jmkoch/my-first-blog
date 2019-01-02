@@ -6,6 +6,16 @@ from .forms import PostForm
 from crispy_forms.helper import FormHelper
 from django.views.generic.edit import CreateView
 
+from django.http import HttpResponse
+from .resources import PostResource
+
+def export(request):
+    person_resource = PostResource()
+    dataset = post_resource.export()
+    response = HttpResponse(dataset.csv, content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="persons.csv"'
+    return response
+
 # Create your views here.
 
 def post_list(request):

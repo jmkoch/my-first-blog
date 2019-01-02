@@ -1,3 +1,4 @@
+import csv
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 
@@ -16,3 +17,23 @@ class Trait(models.Model):
     FRUIT_TYPE_CHOICES = (('Capsule','Capsule'),('Berry','Berry'))
     fruit_type = models.CharField(max_length=50, null=False, default='none', choices=FRUIT_TYPE_CHOICES)
 
+class Person(models.Model):
+    name = models.CharField(max_length=30)
+    email = models.EmailField(blank=True)
+    birth_date = models.DateField()
+    location = models.CharField(max_length=100, blank=True)
+'''
+with open("/Users/JMK/traits-example_short.csv", mode = "r") as infile, open("traits-example_cleaned.csv", "r") as outfile:
+        reader = csv.reader(infile) #reading input csv file
+        next(reader, None) #skips headers
+        writer = csv.writer(outfile) #allows specified outfile to be written to
+        for row in reader: #iterating through rows in csv
+            Trait.objects.get_or_create(
+                isi=row[7],
+                fruit_type=row[21],
+                genus=row[1],
+                species=row[2],
+                )
+            # get_or_create creates a tuple of the new object or
+            # current object and a boolean of if it was created
+'''
