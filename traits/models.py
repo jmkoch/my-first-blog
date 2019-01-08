@@ -19,7 +19,7 @@ class Trait(models.Model):
     #if isi > 1.0:
     #    raise ValidationError
     
-    FRUIT_TYPE_CHOICES = (('Capsule','Capsule'),('Berry','Berry'))
+    FRUIT_TYPE_CHOICES = (('capsule','capsule'),('berry','berry'))
     fruit_type = models.CharField(max_length=50, null=False, default='none', choices=FRUIT_TYPE_CHOICES)
 
 class Person(models.Model):

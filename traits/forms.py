@@ -2,8 +2,8 @@ from django import forms
 
 from .models import Trait
 
-'''
-# I tried to add a form to be able to validate data before importing but it didn't work
+# I tried to add a form to be able to validate 
+# data before importing but it didn't work
 
 class TraitForm(forms.ModelForm):
     class Meta:
@@ -17,7 +17,7 @@ class TraitForm(forms.ModelForm):
         if isi > 1.0:
             raise forms.ValidationError("ISI must be between 0.0 and 1.0")
         return self.cleaned_data
-'''
+
 
 STATES = (
     ('', 'Choose...'),
