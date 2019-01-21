@@ -14,12 +14,8 @@ class Trait(models.Model):
     genus = models.CharField(max_length=50, null=True, blank=False, )#help_text= 'Enter data if known. Expects str as input')
     species = models.CharField(max_length=50, null=True, blank=False, )
     isi = models.FloatField(blank=True, null=True, validators=[MinValueValidator(0.0, message='Must be a number between 0.0 and 1.0'), MaxValueValidator(1.0, message='Must be a number between 0.0 and 1.0')])
-    #if float(isi) < 0.0:
-    #   raise ValidationError
-    #if isi > 1.0:
-    #    raise ValidationError
     
-    FRUIT_TYPE_CHOICES = (('capsule','capsule'),('berry','berry'))
+    FRUIT_TYPE_CHOICES = (('capsule','capsule'), ('CAPSULE', 'CAPSULE'), ('Capsule', 'Capsule'),('berry','berry'), ('Berry', 'Berry'), ('BERRY', 'BERRY')) # check why need doubles 
     fruit_type = models.CharField(max_length=50, null=False, default='none', choices=FRUIT_TYPE_CHOICES)
 
 class Person(models.Model):

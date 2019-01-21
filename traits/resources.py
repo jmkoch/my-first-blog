@@ -10,12 +10,16 @@ class TraitResource(resources.ModelResource):
 
     def before_import(self, dataset, using_transactions, dry_run, **kwargs):
         print('hello') #this works up to this point
-        # try printing imported objects --> figure out how to manipulate that
-        #iterate thru rows of dataset (for i in rows:  --> call i.full_clean()
-        #rows = dataset[]
-
         # no validation here
-        # yes maniuplate csv imported here
+
+        print(dataset.headers) # add note "here are the cols you will import."  
+        # come back and improve this later !! 
+        # include in print stmt: warn user about unrecognized / unexpected cols 
+
+#        for key in kwargs:
+#        	print("another keyword arg: %s: %s:" % (key, kwargs[key]))  # kwargs 
+
+# want to show expected headers here:
 
         if 'id' not in dataset.headers:
             #dataset.headers.append('id')
@@ -23,17 +27,8 @@ class TraitResource(resources.ModelResource):
 
             # get columns in correct order if user imports incorrectly-formatted csv
             # print/check dataset.headers --> compare to 'correct' order of headers 
-            # (currently just the order in models.py); still need to make template csv w/ correct headers
-            # rearrange --> bubble sort ? (sort headers correctly --> overwrite to produce correct header csv)
             # easy python way to rearrange
-
-            # play around w/ what is done correctly (apparently the order!?!?!)
-            # what still needs fixing --> determine manually thru messing up data, etc.
-
             # add in models.py capital options (CAPSULE, Capsule, capsule) <- all valid (etc.)
-
-            # !!!!!!!! next big step: how to avoid admin interface altogether & allow users to do it 
-            # !!!!!!!! (or, set up/see if there's an option for a junior-admin type of thing?)
 
     def before_save_instance(self, instance, using_transactions, dry_run):
         instance.full_clean()  # i is not a trait object yet; so far it's a tuple with whole dataset
