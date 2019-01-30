@@ -1,18 +1,23 @@
 import csv
 from django.db import models
 from django.utils import timezone
-from django.core.validators import MinValueValidator, MaxValueValidator
+from django.core.validators import MinValueValidator, MaxValueValidator, RegexValidator
 
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit
 from crispy_forms.bootstrap import InlineCheckboxes
+
+
+val_alphanumeric = RegexValidator(r'^[0-9a-zA-Z]*$', 'Error: only alphanumeric characters are allowed.')
+val_alpha = RegexValidator(r'^[a-zA-Z]*$', 'Error: only alphabetic characters are allowed.')
+val_numeric = RegexValidator(r'^[0-9]*$', 'Error: only numeric characters are allowed.')
 
 class Trait(models.Model):
     #class Meta:
     #    permissions = (
     #        ('view_trait', 'Can view trait'),
     #    )
-    genus = models.CharField(max_length=50, null=True, blank=False, )#help_text= 'Enter data if known. Expects str as input')
-    species = models.CharField(max_length=50, null=True, blank=False, )
+    genus = models.CharField(max_length=50, null=True, blank=False, validators=[val_alpha])#help_text= 'Enter data if known. Expects str as input')
+    species = models.CharField(max_length=50, null=True, blank=False, validators=[val_alpha])
     isi = models.FloatField(blank=True, null=True, validators=[MinValueValidator(0.0, message='Must be a number between 0.0 and 1.0'), MaxValueValidator(1.0, message='Must be a number between 0.0 and 1.0')])
     
     FRUIT_TYPE_CHOICES = (('capsule','capsule'), ('CAPSULE', 'CAPSULE'), ('Capsule', 'Capsule'),('berry','berry'), ('Berry', 'Berry'), ('BERRY', 'BERRY')) # check why need doubles 
