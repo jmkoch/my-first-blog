@@ -2,34 +2,43 @@ from import_export import resources
 from traits.models import Trait
 from import_export.admin import ImportExportModelAdmin
 from .forms import TraitForm
+from import_export.fields import Field
 
 headers_to_print = []
-expected_headers = ['id', 'genus', 'species', 'isi', 'fruit_type']
+#expected_headers = ['id', 'genus', 'species', 'isi', 'fruit_type']
 
 class TraitResource(resources.ModelResource):
+    full_trait = Field()
+
     class Meta:
         model = Trait
+        fields = ['id', 'genus', 'species', 'isi', 'fruit_type']
+        export_order = ['id', 'genus', 'species', 'isi', 'fruit_type']
+        skip_unchanged = True
+        report_skipped = True
 
-    def before_import(self, dataset, using_transactions, dry_run=True, collect_failed_rows=True, **kwargs): #raise_errors=True
+    def dehydrate_full_trait(self, Trait):
+    	return '%s gen %s spec' % (Trait.genus, Trait.species)
+
+    def before_import(self, dataset, using_transactions, dry_run=True, collect_failed_rows=False, **kwargs): #raise_errors=True
+
+    #def before_import_row(self, row, dataset, **kwargs): #raise_errors=True
 
         if 'id' not in dataset.headers:
             dataset.insert_col(0, lambda row: "", header='id')  # this works! 
-
-        # check if headers match sample headers...
         # if OUT OF ORDER, sort ?
 
-        for i in dataset.headers:
+        '''for i in dataset.headers:
             #headers_to_print.append(i)
             if i != expected_headers:
                 print('expected different order')
             else: 
                 pass
-
+            '''
         # confirm button?
-
+        
         print('Here are the columns you will import:' )
         print(dataset.headers)
-        # include in print stmt: warn user about unrecognized / unexpected cols 
 
 #        for key in kwargs:
 #        	print("another keyword arg: %s: %s:" % (key, kwargs[key]))  # kwargs 
@@ -39,8 +48,22 @@ class TraitResource(resources.ModelResource):
 
     def before_save_instance(self, instance, using_transactions, dry_run):
         instance.full_clean()  # i is not a trait object yet; so far it's a tuple with whole dataset
-        print('done')
+        #print('done')
 		# add additional cleaning functions in here (for_delete? etc.)
+
+    def export_traits_csv(request):
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="traits_output.csv"'
+
+        writer = csv.writer(response)
+        writer.writerow(['id', 'genus', 'species', 'isi', 'fruit type'])
+
+        traits = Trait.objects.all().values_list('id', 'genus', 'species', 'isi', 'fruit_type')
+	    
+        for trait in traits:
+            writer.writerow(trait)
+
+        return response
 
 class TraitAdmin(ImportExportModelAdmin):
 	list_display = ('genus', 'species', 'isi', 'fruit_type')

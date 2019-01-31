@@ -2,8 +2,8 @@ from django import forms
 
 from .models import Trait
 
-# I tried to add a form to be able to validate 
-# data before importing but it didn't work
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
 
 class TraitForm(forms.ModelForm):
     class Meta:
@@ -18,6 +18,21 @@ class TraitForm(forms.ModelForm):
             raise forms.ValidationError("ISI must be between 0.0 and 1.0")
         return self.cleaned_data
 
+# the attempted admin crispy form (matches admin.py line 18 @register block)
+'''class MyCrispyForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_id = 'id-my-form'
+        self.helper.form_class = 'my-form'
+        self.helper.form_method = 'post'
+        self.helper.add_input(Submit('submit', 'Submit'))
+
+    class Meta:
+        model = Trait
+        fields = []
+'''
 
 STATES = (
     ('', 'Choose...'),
