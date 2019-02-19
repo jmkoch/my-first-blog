@@ -20,31 +20,17 @@ class TraitResource(resources.ModelResource):
     def dehydrate_full_trait(self, Trait):
     	return '%s gen %s spec' % (Trait.genus, Trait.species)
 
+# before importing csv, this checks for a blank 'id' col. This adds 'id' col if not present
     def before_import(self, dataset, using_transactions, dry_run=True, collect_failed_rows=False, **kwargs): #raise_errors=True
-
-    #def before_import_row(self, row, dataset, **kwargs): #raise_errors=True
-
         if 'id' not in dataset.headers:
-            dataset.insert_col(0, lambda row: "", header='id')  # this works! 
-        # if OUT OF ORDER, sort ?
-
-        '''for i in dataset.headers:
-            #headers_to_print.append(i)
-            if i != expected_headers:
-                print('expected different order')
-            else: 
-                pass
-            '''
-        # confirm button?
+            dataset.insert_col(0, lambda row: "", header='id')
         
         print('Here are the columns you will import:' )
         print(dataset.headers)
 
 #        for key in kwargs:
 #        	print("another keyword arg: %s: %s:" % (key, kwargs[key]))  # kwargs 
-
             # get columns in correct order if user imports incorrectly-formatted csv
-            # easy python way to rearrange
 
     def before_save_instance(self, instance, using_transactions, dry_run):
         instance.full_clean()  # i is not a trait object yet; so far it's a tuple with whole dataset

@@ -6,12 +6,13 @@ from django.core.validators import MinValueValidator, MaxValueValidator, RegexVa
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit
 from crispy_forms.bootstrap import InlineCheckboxes
 
-
+# variables for validation: check for alphanumeric chars, alpha chars, and numeric chars, respectively
 val_alphanumeric = RegexValidator(r'^[0-9a-zA-Z]*$', 'Error: only alphanumeric characters are allowed.')
 val_alpha = RegexValidator(r'^[a-zA-Z]*$', 'Error: only alphabetic characters are allowed.')
 val_numeric = RegexValidator(r'^[0-9]*$', 'Error: only numeric characters are allowed.')
 
 class Trait(models.Model):
+    # might implement the following 'Meta' class addition at some point (Sai had this)
     #class Meta:
     #    permissions = (
     #        ('view_trait', 'Can view trait'),
@@ -23,23 +24,18 @@ class Trait(models.Model):
     FRUIT_TYPE_CHOICES = (('capsule','capsule'), ('CAPSULE', 'CAPSULE'), ('Capsule', 'Capsule'),('berry','berry'), ('Berry', 'Berry'), ('BERRY', 'BERRY')) # check why need doubles 
     fruit_type = models.CharField(max_length=50, null=False, default='none', choices=FRUIT_TYPE_CHOICES)
 
-class Person(models.Model):
-    name = models.CharField(max_length=30)
-    email = models.EmailField(blank=True)
-    birth_date = models.DateField()
-    location = models.CharField(max_length=100, blank=True)
-'''
-with open("/Users/JMK/traits-example_short.csv", mode = "r") as infile, open("traits-example_cleaned.csv", "r") as outfile:
-        reader = csv.reader(infile) #reading input csv file
-        next(reader, None) #skips headers
-        writer = csv.writer(outfile) #allows specified outfile to be written to
-        for row in reader: #iterating through rows in csv
-            Trait.objects.get_or_create(
-                isi=row[7],
-                fruit_type=row[21],
-                genus=row[1],
-                species=row[2],
-                )
+
+# csv practice code below
+
+#with open("/Users/JMK/traits-example_short.csv", mode = "r") as infile, open("traits-example_cleaned.csv", "r") as outfile:      reader = csv.reader(infile) #reading input csv file
+#        next(reader, None) #skips headers
+#        writer = csv.writer(outfile) #allows specified outfile to be written to
+#        for row in reader: #iterating through rows in csv
+#            Trait.objects.get_or_create(
+#                isi=row[7],
+#                fruit_type=row[21],
+#                genus=row[1],
+#                species=row[2],
+#                )
             # get_or_create creates a tuple of the new object or
             # current object and a boolean of if it was created
-'''
