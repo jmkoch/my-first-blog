@@ -1,5 +1,5 @@
 from django.views.generic import CreateView
-from traits.models import Trait
+from traits.models import Trait, Person
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
@@ -22,6 +22,10 @@ from django.contrib.auth.models import User
 class TraitCreateView(CreateView):
 	model = Trait
 	fields = ('genus', 'species', 'isi', 'fruit_type')
+
+class PersonCreateView(CreateView):
+	model = Person
+	fields = ('name', 'email', 'birth_date', 'location')
 
 def export(request):
     person_resource = PersonResource()

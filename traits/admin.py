@@ -1,6 +1,6 @@
 from django.contrib import admin
 from . import models
-from .models import Trait
+from .models import Trait, Person
 from import_export.admin import ImportExportModelAdmin
 from django import forms
 from .forms import TraitForm #, MyCrispyForm
@@ -13,6 +13,16 @@ class TraitAdmin(ImportExportModelAdmin):
 	form = TraitForm
 	resource_class = TraitResource
     #pass
+
+
+#class PersonAdmin(admin.ModelAdmin):
+#	list_display = ('name', 'email', 'birth_date', 'location')
+
+#admin.site.register(Person, PersonAdmin)
+
+
+
+
 '''
 # trying to incorporate crispy form into admin
 @admin.register(models.Trait)
