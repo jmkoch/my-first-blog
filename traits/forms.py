@@ -1,5 +1,5 @@
 from django import forms
-from .models import Trait
+from .models import Trait, Pub
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit
@@ -16,3 +16,14 @@ class TraitForm(forms.ModelForm):
         if isi > 1.0:
             raise forms.ValidationError("ISI must be between 0.0 and 1.0")
         return self.cleaned_data
+
+class PubForm(forms.ModelForm):
+    class Meta:
+        model = Pub
+        exclude = [id, ]
+    def clean(self):
+        lastname = self.cleaned_data.get('lastname')
+        middlename = self.cleaned_data.get('middlename')
+        firstname = self.cleaned_data.get('firstname')
+        citekey = self.cleaned_data.get('citekey')
+        pub_type = self.cleaned_data.get('pub_type')
