@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'characters',
     'traits',
     'import_export',
+    'pub',
 ]
 
 IMPORT_EXPORT_USE_TRANSACTIONS = True

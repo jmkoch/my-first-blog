@@ -24,18 +24,6 @@ class Trait(models.Model):
     FRUIT_TYPE_CHOICES = (('capsule','capsule'), ('CAPSULE', 'CAPSULE'), ('Capsule', 'Capsule'),('berry','berry'), ('Berry', 'Berry'), ('BERRY', 'BERRY')) # check why need doubles 
     fruit_type = models.CharField(max_length=50, null=False, default='none', choices=FRUIT_TYPE_CHOICES)
 
-
-class Pub(models.Model):
-    lastName = models.CharField(max_length=50, null=True, blank=False, validators=[val_alpha])
-    middleName = models.CharField(max_length=50, null=True, blank=False, validators=[val_alpha])
-    firstName = models.CharField(max_length=50, null=True, blank=False, validators=[val_alpha])
-    citekey = models.CharField(max_length=50, null=True, blank=False, unique=True, validators=[val_numeric])
-    
-    PUB_TYPE_CHOICES = (('article', 'article'), ('book','book'))
-    pub_type = models.CharField(max_length=50, null=True, blank=True, choices=PUB_TYPE_CHOICES)
-
-
-
 # csv practice code below
 
 #with open("/Users/JMK/traits-example_short.csv", mode = "r") as infile, open("traits-example_cleaned.csv", "r") as outfile:      reader = csv.reader(infile) #reading input csv file
