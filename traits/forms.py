@@ -22,8 +22,8 @@ class PubForm(forms.ModelForm):
         model = Pub
         exclude = [id, ]
     def clean(self):
-        lastname = self.cleaned_data.get('lastname')
-        middlename = self.cleaned_data.get('middlename')
-        firstname = self.cleaned_data.get('firstname')
+        lastName = self.cleaned_data.get('lastName')
+        middleName = self.cleaned_data.get('middleName')
+        firstName = self.cleaned_data.get('firstName')
         citekey = self.cleaned_data.get('citekey')
         pub_type = self.cleaned_data.get('pub_type')
