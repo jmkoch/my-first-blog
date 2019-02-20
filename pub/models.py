@@ -16,7 +16,7 @@ class Pub(models.Model):
     lastName = models.CharField(max_length=50, null=True, blank=False, validators=[val_alpha])
     middleName = models.CharField(max_length=50, null=True, blank=False, validators=[val_alpha])
     firstName = models.CharField(max_length=50, null=True, blank=False, validators=[val_alpha])
-    citekey = models.CharField(max_length=50, null=True, blank=False, unique=True, validators=[val_numeric])
+    citekey = models.CharField(max_length=50, null=True, blank=False, unique=True, validators=[val_alphanumeric])
     
     PUB_TYPE_CHOICES = (('article', 'article'), ('book','book'))
     pub_type = models.CharField(max_length=50, null=True, blank=True, choices=PUB_TYPE_CHOICES)
