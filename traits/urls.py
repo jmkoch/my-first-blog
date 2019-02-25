@@ -6,4 +6,3 @@ urlpatterns = [
     url(r'^export/csv/$', export_traits_csv, name='export_traits_csv'),
 
 ]
-
