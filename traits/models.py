@@ -3,6 +3,8 @@ from django.db import models
 from django.utils import timezone
 from django.core.validators import MinValueValidator, MaxValueValidator, RegexValidator
 
+from django.contrib.contenttypes.fields import GenericRelation
+
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit
 from crispy_forms.bootstrap import InlineCheckboxes
 from pub.models import Pub
@@ -24,7 +26,7 @@ class Trait(models.Model):
     
     FRUIT_TYPE_CHOICES = (('capsule','capsule'), ('CAPSULE', 'CAPSULE'), ('Capsule', 'Capsule'),('berry','berry'), ('Berry', 'Berry'), ('BERRY', 'BERRY')) # check why need doubles 
     fruit_type = models.CharField(max_length=50, null=False, default='none', choices=FRUIT_TYPE_CHOICES)
-    publication = models.ForeignKey(Pub, on_delete=models.CASCADE, null=True)
+    #publication = models.ForeignKey(Pub, on_delete=models.CASCADE, null=True)
 
 # csv practice code below
 
