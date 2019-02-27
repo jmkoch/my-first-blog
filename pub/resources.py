@@ -24,6 +24,7 @@ class PubResource(resources.ModelResource):
     def before_import(self, dataset, using_transactions, dry_run=True, collect_failed_rows=False, **kwargs): #raise_errors=True
         if 'citekey' not in dataset.headers:
             dataset.insert_col(0, lambda row: "", header='citekey')
+
         
         print('Here are the columns you will import:' )
         print(dataset.headers)
