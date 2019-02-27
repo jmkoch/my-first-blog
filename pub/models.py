@@ -1,4 +1,5 @@
 from django.db import models
+from traits.models import Trait
 
 import csv
 from django.utils import timezone
@@ -20,3 +21,5 @@ class Pub(models.Model):
     
     PUB_TYPE_CHOICES = (('article', 'article'), ('book','book'))
     pub_type = models.CharField(max_length=50, null=True, blank=True, choices=PUB_TYPE_CHOICES)
+
+    #trait_idMatch = models.ForeignKey('traits.Trait', on_delete=models.CASCADE,)
