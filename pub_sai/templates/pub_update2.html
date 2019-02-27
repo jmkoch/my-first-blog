@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block sidebar %}
+
+            <ul class="nav nav-sidebar">
+                <li><a href="{% url 'pub_browse_base' %}">Back to Publication</a>
+                <li><a href="{% url 'pub_delete' pub.citekey %}">Delete Publication</a>
+
+            </ul>
+            <br>{% csrf_token %}
+            {% for success in success_alerts %}
+            <div class="alert alert-success" role="alert">
+                <strong>"{{success}}"</strong>
+            </div>
+            {% endfor %}
+            {% for info in info_alerts %}
+            <div class="alert alert-info" role="alert">
+                <strong>"{{info}}"</strong> 
+            </div>
+            {% endfor %}
+            {% for warning in warning_alerts %}
+            <div class="alert alert-warning" role="alert">
+                <strong>"{{warning}}"</strong>
+            </div>
+            {% endfor %}
+            {% for danger in danger_alerts %}
+            <div class="alert alert-danger" role="alert">
+                <strong>"{{danger}}"</strong>
+            </div>
+            {% endfor %}
+{% endblock %}
+{% block content %}
+    <style>
+    </style>
+
+    <h1>Update Publication: "{{pub.citekey}}"</h1>
+    {% if user.is_authenticated %}
+    {% if form %}
+    * Required Fields
+    <form action="/pubs/browse/{{pub.citekey}}/update" method="post">{% csrf_token %}
+        {% load crispy_forms_tags %}
+        {% crispy form %}
+    </form>
+    {% endif %}
+    {% endif %}
+
+{% endblock %}

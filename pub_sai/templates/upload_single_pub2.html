@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block sidebar %}
+
+            <ul class="nav nav-sidebar">
+                <li><a href="{% url 'pub_browse_upload_single' %}">Enter Single Publication</a>
+                <li><a href="{% url 'pub_browse_upload_bfile' %}">Upload BibTex File</a>
+            </ul>
+            <br>{% csrf_token %}
+            {% for success in success_alerts %}
+            <div class="alert alert-success" role="alert">
+                <strong>{{success}}</strong>
+            </div>
+            {% endfor %}
+            {% for info in info_alerts %}
+            <div class="alert alert-info" role="alert">
+                <strong>{{info}}</strong>
+            </div>
+            {% endfor %}
+            {% for warning in warning_alerts %}
+            <div class="alert alert-warning" role="alert">
+                <strong>{{warning}}</strong>
+            </div>
+            {% endfor %}
+            {% for danger in danger_alerts %}
+            <div class="alert alert-danger" role="alert">
+                <strong>{{danger}}</strong>
+            </div>
+            {% endfor %}
+{% endblock %}
+{% block content %}
+
+    <h1>Upload Publication by Fields</h1>
+    {% if user.is_authenticated %}
+    {% if form %}
+    * Required Fields
+    <form action="/pubs/single/" id="pub_entry_form" method="post">{% csrf_token %}
+        {% load crispy_forms_tags %}
+        {% crispy form %}
+    </form>
+    {% endif %}
+
+    {% if success %}
+    <h2>Succesfully Uploaded {{success_count}}</h2>
+        <table>
+            <thead>
+                <th>Citation</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Year</th>
+            </thead>
+            <tbody>
+                {% for pub in success %}
+                    <tr><td>{{pub.citekey}}</td><td>{{pub.author}}</td><td>{{pub.title}}</td><td>{{trait.year}}</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    {% endif %}
+
+    {% if errors %}
+    <h2>Failed to Upload {{errors_count}}</h2>
+        <table>
+            <thead>
+                <th>Citation</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Year</th>
+            </thead>
+            <tbody>
+                {% for pub in errors %}
+                    <tr><td>{{pub.citekey}}</td><td>{{pub.author}}</td><td>{{pub.title}}</td><td>{{trait.year}}</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    {% endif %}
+
+
+    {% if messages %}
+    <div class="messages">
+    {% for message in messages %}
+    <div{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</div>
+    {% endfor %}
+    </div>
+    {% endif %}
+    {% else %}
+    <p>You must be logged in to see this page</p>
+    {% endif %}
+
+
+{% endblock %}

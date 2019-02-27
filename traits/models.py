@@ -5,6 +5,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator, RegexVa
 
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit
 from crispy_forms.bootstrap import InlineCheckboxes
+from pub.models import Pub
 
 # variables for validation: check for alphanumeric chars, alpha chars, and numeric chars, respectively
 val_alphanumeric = RegexValidator(r'^[0-9a-zA-Z]*$', 'Error: only alphanumeric characters are allowed.')
@@ -23,6 +24,7 @@ class Trait(models.Model):
     
     FRUIT_TYPE_CHOICES = (('capsule','capsule'), ('CAPSULE', 'CAPSULE'), ('Capsule', 'Capsule'),('berry','berry'), ('Berry', 'Berry'), ('BERRY', 'BERRY')) # check why need doubles 
     fruit_type = models.CharField(max_length=50, null=False, default='none', choices=FRUIT_TYPE_CHOICES)
+    publication = models.ForeignKey(Pub, on_delete=models.CASCADE, null=True)
 
 # csv practice code below
 

@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+{% block sidebar %}
+
+    <script src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"></script>
+
+
+    <style>
+    .scrollable-menu {
+    height: auto;
+    max-height: 500px;
+    overflow-x: hidden;
+    }
+
+    .tbody{
+        border-top-width: 10px;
+    }
+
+    .ul_three_columns {
+      columns: 3;
+      -webkit-columns: 3;
+      -moz-columns: 3;
+    }
+
+
+    table, td {
+        overflow:hidden;
+    }
+
+    th:: after{
+        content: "--r"
+    }
+    </style>
+    <!--Search and Filter -->
+
+    <ul class="nav nav-tabs nav-stacked">
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Query Database <b class="caret"></b></a>
+            <ul class="ul_three_columns dropdown-menu scrollable-menu list-group">
+                <form class="sidebar-form" action={% url 'pub_browse_query' %} method="post" role="query" required="false">{% csrf_token %}
+
+                    <li>
+                        <button type="submit">Search!</button>
+                        <button type="reset">Reset!</button>
+                        </br>
+                        <input type="radio" name="match_type" value="partial">Partial<br>
+                        <input type="radio" name="match_type" value="exact" checked="checked">Exact<br>
+
+                    </li>
+
+                    {% if search_form %}
+                        {% load crispy_forms_tags %}
+                        {% crispy search_form %}
+                    {% endif %}
+                </form>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Filter Results <b class="caret"></b></a>
+        </li>
+    </ul>
+
+
+    <!-- Download Bibtex-->
+
+    <form role="form" action ="/pubs/browse/download" method="post">{% csrf_token %}
+        <div class="form-group">
+        <input class="form-control" id="download_bibtex" style="visibility:hidden" name="download_bibtex" type="text" value="download"/>
+        <button type="submit" class="btn btn-default" aria-label="Left Align" id="download">
+                <span class="" aria-hidden="true" value="download">Download Bibtex</span>
+        </button>
+        </div>
+    </form>
+
+    <!-- Query and Filter Information-->
+    {% if query_params %}
+        <div class="alert alert-info">
+        <p>Current Query Results</br>Field: query_string</p>
+        <ul>
+        {% for citekey,value in query_params.items %}
+            <li>{{ citekey}}:{{value }}</li>
+        {% endfor %}
+        </ul>
+        </div>
+    {% endif %}
+
+
+
+    <!--Alerts -->
+        {% for success in success_alerts %}
+        <div class="alert alert-success" role="alert">
+            <strong>{{success}}</strong>
+        </div>
+        {% endfor %}
+        {% for info in info_alerts %}
+        <div class="alert alert-info" role="alert">
+            <strong>{{info}}</strong>
+        </div>
+        {% endfor %}
+        {% for warning in warning_alerts %}
+        <div class="alert alert-warning" role="alert">
+            <strong>{{warning}}</strong>
+        </div>
+        {% endfor %}
+        {% for danger in danger_alerts %}
+        <div class="alert alert-danger" role="alert">
+            <strong>{{danger}}</strong>
+        </div>
+        {% endfor %}
+{% endblock %}
+{% block content %}
+    <style>
+    .data-wrapper { height: 1000px; width: 1000px;}
+    .data-wrapper { height: 100px;}
+</style>
+
+    <h1>Publications</h1>
+    {% if user.is_authenticated %}
+    <div id="datawrapper" class="data-wrapper">
+        <p>Note: To sort columns, click on column heading.</p>
+    <table id="pub_data_table" class="table table-hover data-wrapper">
+        <thead>
+            <th>Publication Title</th>
+            <th>Authors</th>
+            <th>Year</th>
+        </thead>
+        <tbody>
+        {%for pub in pubs%}
+            <tr>
+                <td><a href={{pub.key}}>{{pub.title}}</a></td>
+                <td>{% for author in pub.author.all %} {{ author }}{% if not forloop.last %},{% endif %}{% endfor %}</td>
+                <td>{{pub.year}}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <script>
+    $(document).ready(function(){
+        $('#pub_data_table').DataTable({
+        searching: false,
+        paging: false
+        });
+    });
+    </script>
+    </div>
+
+    {% else %}
+    <p>You must be logged in to see this page</p>
+    {% endif %}
+{% endblock %}

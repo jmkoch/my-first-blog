@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block sidebar %}
+
+            <ul class="nav nav-sidebar">
+                <li><a href="{% url 'pub_browse_upload_single' %}">Enter Single Publication</a>
+                <li><a href="{% url 'pub_browse_upload_bfile' %}">Upload BibTex File</a>
+            </ul>
+            <br>{% csrf_token %}
+            {% for success in success_alerts %}
+            <div class="alert alert-success" role="alert">
+                <strong>{{success}}</strong>
+            </div>
+            {% endfor %}
+            {% for info in info_alerts %}
+            <div class="alert alert-info" role="alert">
+                <strong>{{info}}</strong> 
+            </div>
+            {% endfor %}
+            {% for warning in warning_alerts %}
+            <div class="alert alert-warning" role="alert">
+                <strong>{{warning}}</strong>
+            </div>
+            {% endfor %}
+            {% for danger in danger_alerts %}
+            <div class="alert alert-danger" role="alert">
+                <strong>{{danger}}</strong>
+            </div>
+            {% endfor %}
+{% endblock %}
+{% block content %}
+
+    <h1>Upload BibFile</h1>   
+    <form action="/pubs/bfile/" enctype="multipart/form-data" method="post">{% csrf_token %}
+        {{form.as_p}}
+        <button type="submit" id= "submit" class="btn btn-default" aria-label="Left Align">
+        <span class="" aria-hidden="true" value="Upload">Upload</span>
+        </button>
+    </form>
+    
+    {% if success %}
+    <h2>Succesfully Uploaded {{success_count}}</h2>
+    <ul>
+    {% for pub in success %}
+        <li>{{ pub }}</li>
+    {% endfor %}
+    </ul>
+        
+    {% endif %}
+    
+    {% if errors %}
+    <h2>Failed to Upload {{errors_count}}</h2>
+    <ul>
+    {% for pub in errors %}
+        <li>{{ pub }}</li>
+    {% endfor %}
+    </ul>
+
+        
+    {% endif %}
+    
+    {% if messages %}
+    <div class="messages">
+    {% for message in messages %}
+    <div{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</div>
+    {% endfor %}
+    </div>  
+    {% endif %}
+
+
+{% endblock %}

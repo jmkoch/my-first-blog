@@ -1,5 +1,5 @@
 from django.db import models
-from traits.models import Trait
+# from traits.models import Trait this produces ImportError... why??
 
 import csv
 from django.utils import timezone

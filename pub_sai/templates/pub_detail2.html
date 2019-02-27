@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block sidebar %}
+
+            <ul class="nav nav-sidebar">
+                <li><a href="{% url 'pub_browse_base' %}">Back to Publication</a>
+                <li><a href="{% url 'pub_update' pub.citekey %}">Update Publication</a>
+                <li><a href="{% url 'pub_delete' pub.citekey %}">Delete Publication</a>
+
+            </ul>
+            <br>{% csrf_token %}
+            {% for success in success_alerts %}
+            <div class="alert alert-success" role="alert">
+                <strong>{{success}}</strong>
+            </div>
+            {% endfor %}
+            {% for info in info_alerts %}
+            <div class="alert alert-info" role="alert">
+                <strong>{{info}}</strong>
+            </div>
+            {% endfor %}
+            {% for warning in warning_alerts %}
+            <div class="alert alert-warning" role="alert">
+                <strong>{{warning}}</strong>
+            </div>
+            {% endfor %}
+            {% for danger in danger_alerts %}
+            <div class="alert alert-danger" role="alert">
+                <strong>{{danger}}</strong>
+            </div>
+            {% endfor %}
+{% endblock %}
+{% block content %}
+    <style>
+        .editable_field {
+            visibility: hidden
+        }
+    </style>
+
+    <h1>Publication Detail: {{pub.citekey}}</h1>
+    {% if user.is_authenticated %}
+    <table class="table table-hover data-wrapper">
+        <thead>
+            <th>
+                Attribute
+            </th>
+            <th>
+                Current Value
+            </th>
+            <th class="editable_field">
+                Update
+            </th>
+        </thead>
+
+        <tbody>
+
+                <tr class="pub_detail_row"><td><strong>Address</strong></td><td>{{pub.address}}</td><td><input class="editable_field" value={{pub.address}}></input></td></tr>
+                <tr class="pub_detail_row"><td><strong>Annote</strong></td><td>{{pub.annote}}</td><td><input class="editable_field" value={{pub.annote}}></input></td></tr>
+                <tr class="pub_detail_row"><td><strong>Author</strong></td><td>{% for author in pub.author.all %} {{ author }}, {% endfor %}</td><td><input class="editable_field" value={{pub.author}}></input></td></tr>
+                <tr class="pub_detail_row"><td><strong>Booktitle</strong></td><td>{{pub.booktitle}}</td><td><input class="editable_field" value={{pub.booktitle}}></input></td></tr>
+                <tr class="pub_detail_row"><td><strong>Chapter</strong></td><td>{{pub.chapter}}</td><td><input class="editable_field" value={{pub.chapter}}></input></td></tr>
+                <tr class="pub_detail_row"><td><strong>Crossref</strong></td><td>{{pub.crossref}}</td><td><input class="editable_field" value={{pub.crossref}}></input></td></tr>
+                <tr class="pub_detail_row"><td><strong>Edition</strong></td><td>{{pub.edition}}</td><td><input class="editable_field" value={{pub.edition}}></input></td></tr>
+                <tr class="pub_detail_row"><td><strong>Editor</strong></td><td>{% for editor in pub.editor.all %} {{ editor }}, {% endfor %}</td><td><input class="editable_field" value={{pub.editor}}></input></td></tr>
+                <tr class="pub_detail_row"><td><strong>Howpublished</strong></td><td>{{pub.howpublished}}</td><td><input class="editable_field" value={{pub.howpublished}}></input></td></tr>
+                <tr class="pub_detail_row"><td><strong>Institution</strong></td><td>{{pub.institution}}</td><td><input class="editable_field" value={{pub.institution}}></input></td></tr>
+                <tr class="pub_detail_row"><td><strong>Journal</strong></td><td>{{pub.journal}}</td><td><input class="editable_field" value={{pub.journal}}></input></td></tr>
+                <tr class="pub_detail_row"><td><strong>CiteKey</strong></td><td>{{pub.citekey}}</td><td><input class="editable_field" value={{pub.citekey}}></input></td></tr>
+                <tr class="pub_detail_row"><td><strong>Month</strong></td><td>{{pub.month}}</td><td><input class="editable_field" value={{pub.month}}></input></td></tr>
+                <tr class="pub_detail_row"><td><strong>Note</strong></td><td>{{pub.note}}</td><td><input class="editable_field" value={{pub.note}}></input></td></tr>
+                <tr class="pub_detail_row"><td><strong>Number</strong></td><td>{{pub.number}}</td><td><input class="editable_field" value={{pub.number}}></input></td></tr>
+                <tr class="pub_detail_row"><td><strong>Organization</strong></td><td>{{pub.organization}}</td><td><input class="editable_field" value={{pub.organization}}></input></td></tr>
+                <tr class="pub_detail_row"><td><strong>Pages</strong></td><td>{{pub.pages}}</td><td><input class="editable_field" value={{pub.pages}}></input></td></tr>
+                <tr class="pub_detail_row"><td><strong>Publisher</strong></td><td>{{pub.publisher}}</td><td><input class="editable_field" value={{pub.publisher}}></input></td></tr>
+                <tr class="pub_detail_row"><td><strong>School</strong></td><td>{{pub.school}}</td><td><input class="editable_field" value={{pub.school}}></input></td></tr>
+                <tr class="pub_detail_row"><td><strong>Series</strong></td><td>{{pub.series}}</td><td><input class="editable_field" value={{pub.series}}></input></td></tr>
+                <tr class="pub_detail_row"><td><strong>Title</strong></td><td>{{pub.title}}</td><td><input class="editable_field" value={{pub.title}}></input></td></tr>
+                <tr class="pub_detail_row"><td><strong>Type</strong></td><td>{{pub.type}}</td><td><input class="editable_field" value={{pub.type}}></input></td></tr>
+                <tr class="pub_detail_row"><td><strong>Volume</strong></td><td>{{pub.volume}}</td><td><input class="editable_field" value={{pub.volume}}></input></td></tr>
+                <tr class="pub_detail_row"><td><strong>Year</strong></td><td>{{pub.year}}</td><td><input class="editable_field" value={{pub.year}}></input></td></tr>
+
+        </tbody>
+    </table>
+    <table class="table table-hover data-wrapper">
+        <tbody>
+            <h3>Linked Traits</h3>
+            {% for item in pub.trait_set.get_queryset %}
+                <tr class="pub_detail_row"><td><a href="{% url 'traits_browse_single_species'  item.id%}">{{item}}</a></td></tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+
+    {% else %}
+    <p>You must be logged in to see this page</p>
+    {% endif %}
+
+
+{% endblock %}
