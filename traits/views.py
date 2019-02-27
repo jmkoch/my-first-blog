@@ -16,7 +16,7 @@ from django.contrib.auth.models import User
 # Trait view 
 class TraitCreateView(CreateView):
 	model = Trait
-	fields = ('genus', 'species', 'isi', 'fruit_type')
+	fields = ('id','genus', 'species', 'isi', 'fruit_type')
 
 # code to export the trait csv data from admin (shows up as a button on admin Traits page)
 def export_traits_csv(request):
