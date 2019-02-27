@@ -22,4 +22,11 @@ class Pub(models.Model):
     PUB_TYPE_CHOICES = (('article', 'article'), ('book','book'))
     pub_type = models.CharField(max_length=50, null=True, blank=True, choices=PUB_TYPE_CHOICES)
 
+    
+    def __unicode__(self):
+        return self.citekey
+
+    def __str__(self):
+        return self.citekey
+
     #trait_idMatch = models.ForeignKey('traits.Trait', on_delete=models.CASCADE,)
