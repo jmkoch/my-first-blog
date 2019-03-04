@@ -22,7 +22,7 @@ class Pub(models.Model):
     
     PUB_TYPE_CHOICES = (('article', 'article'), ('book','book'))
     pub_type = models.CharField(max_length=50, null=True, blank=True, choices=PUB_TYPE_CHOICES)
-    trait = models.ForeignKey("traits.Trait", on_delete=models.CASCADE)#models.traits.Trait, on_delete=models.CASCADE, null=True)
+    #trait = models.ForeignKey("traits.Trait", on_delete=models.CASCADE)#models.traits.Trait, on_delete=models.CASCADE, null=True)
 
 
     def __unicode__(self):
