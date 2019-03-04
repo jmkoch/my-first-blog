@@ -1,6 +1,6 @@
 from django.views.generic import CreateView
 from django.views.generic.edit import CreateView
-from pub.models import Pub
+from .models import Pub
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone

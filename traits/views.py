@@ -1,6 +1,6 @@
 from django.views.generic import CreateView
 from django.views.generic.edit import CreateView
-from traits.models import Trait
+from .models import Trait
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
