@@ -26,7 +26,7 @@ class Trait(models.Model):
     
     FRUIT_TYPE_CHOICES = (('capsule','capsule'), ('CAPSULE', 'CAPSULE'), ('Capsule', 'Capsule'),('berry','berry'), ('Berry', 'Berry'), ('BERRY', 'BERRY')) # check why need doubles 
     fruit_type = models.CharField(max_length=50, null=False, default='none', choices=FRUIT_TYPE_CHOICES)
-    pub = models.ForeignKey(Pub, on_delete=models.CASCADE, null=True, db_column='citekey')
+    #pub = models.ForeignKey(Pub, on_delete=models.CASCADE, null=True, db_column='citekey')#), related_name='+', default='2')#default='Koch2012', validators=[val_alphanumeric])
 # step 1: fix migrations to allow foreign key publication line (29 here) to work
 # add trait --> citekey field should have something there: see what it looks like (does it list all pubs that 
 # have been imported already? get a better sense of what's here)
